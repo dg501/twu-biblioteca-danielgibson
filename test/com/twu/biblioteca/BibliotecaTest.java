@@ -44,11 +44,37 @@ public class BibliotecaTest {
     public void shouldReturnListOfBooks() {
 
         BibliotecaApp.main(placeholder);
-        String[] bookArray = { "LoTR", "Twilight", "Jumanji"};
+        String[] bookArray = { "LoTR", "Twilight", "Jumanji" };
 
         for (int i = 0; i < bookArray.length; i++) {
           assertThat(outputContent.toString(), containsString(bookArray[i]));
         }
+
+    }
+
+    @Test
+    public void shouldShowBookAuthors() {
+
+        BibliotecaApp.main(placeholder);
+        String[] authorArray = { "Tolkien", "Stephanie Meyer", "John Smith" };
+
+        for (int i = 0; i < authorArray.length; i++) {
+            assertThat(outputContent.toString(), containsString(authorArray[i]));
+        }
+
+
+    }
+
+    @Test
+    public void shouldListPublicationYear() {
+
+        BibliotecaApp.main(placeholder);
+        String[] yearArray = { "1948", "2005", "2000" };
+
+        for (int i = 0; i < yearArray.length; i++) {
+            assertThat(outputContent.toString(), containsString(yearArray[i]));
+        }
+
 
     }
 }
