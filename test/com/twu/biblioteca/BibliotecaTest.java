@@ -5,7 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -32,19 +34,28 @@ public class BibliotecaTest {
     @Test
     public void shouldReturnWelcomeMessage() {
 
-        BibliotecaApp.main(placeholder);
         String welcomeMessage = "Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!\n";
 
-        assertThat(outputContent.toString(), startsWith(welcomeMessage));
+        String userInput = "1";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
 
+        BibliotecaApp.main(placeholder);
+
+        assertThat(outputContent.toString(), startsWith(welcomeMessage));
 
     }
 
     @Test
     public void shouldReturnListOfBooks() {
 
-        BibliotecaApp.main(placeholder);
         String[] bookArray = { "LoTR", "Twilight", "Jumanji" };
+
+        String userInput = "1";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
+
+        BibliotecaApp.main(placeholder);
 
         for (int i = 0; i < bookArray.length; i++) {
           assertThat(outputContent.toString(), containsString(bookArray[i]));
@@ -55,8 +66,13 @@ public class BibliotecaTest {
     @Test
     public void shouldShowBookAuthors() {
 
-        BibliotecaApp.main(placeholder);
         String[] authorArray = { "Tolkien", "Stephanie Meyer", "John Smith" };
+
+        String userInput = "1";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
+
+        BibliotecaApp.main(placeholder);
 
         for (int i = 0; i < authorArray.length; i++) {
             assertThat(outputContent.toString(), containsString(authorArray[i]));
@@ -68,13 +84,35 @@ public class BibliotecaTest {
     @Test
     public void shouldListPublicationYear() {
 
-        BibliotecaApp.main(placeholder);
         String[] yearArray = { "1948", "2005", "2000" };
+
+        String userInput = "1";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
+
+        BibliotecaApp.main(placeholder);
 
         for (int i = 0; i < yearArray.length; i++) {
             assertThat(outputContent.toString(), containsString(yearArray[i]));
         }
 
+
+    }
+
+    @Test
+    public void shouldPromptMainMenu() {
+
+        String[] mainMenuItems = { "~~Main Menu~~", "1. List all books", "2. Something", "3. Placeholder" };
+
+        String userInput = "1";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
+
+        BibliotecaApp.main(placeholder);
+
+        for (int i = 0; i < mainMenuItems.length; i++) {
+            assertThat(outputContent.toString(), containsString(mainMenuItems[i]));
+        }
 
     }
 }
