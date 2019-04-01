@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 
-import org.hamcrest.core.IsEqual;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +8,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.hamcrest.core.StringContains.containsString;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.*;
 
 public class BibliotecaTest {
@@ -34,7 +35,20 @@ public class BibliotecaTest {
         BibliotecaApp.main(placeholder);
         String welcomeMessage = "Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!\n";
 
-        assertThat(welcomeMessage, IsEqual.equalTo(outputContent.toString()));
+        assertThat(outputContent.toString(), startsWith(welcomeMessage));
+
+
+    }
+
+    @Test
+    public void shouldReturnListOfBooks() {
+
+        BibliotecaApp.main(placeholder);
+        String[] bookArray = { "LoTR", "Twilight", "Jumanji"};
+
+        for (int i = 0; i < bookArray.length; i++) {
+          assertThat(outputContent.toString(), containsString(bookArray[i]));
+        }
 
     }
 }
