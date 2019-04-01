@@ -5,10 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -78,7 +75,6 @@ public class BibliotecaTest {
             assertThat(outputContent.toString(), containsString(authorArray[i]));
         }
 
-
     }
 
     @Test
@@ -96,13 +92,12 @@ public class BibliotecaTest {
             assertThat(outputContent.toString(), containsString(yearArray[i]));
         }
 
-
     }
 
     @Test
     public void shouldPromptMainMenu() {
 
-        String[] mainMenuItems = { "~~Main Menu~~", "1. List all books", "2. Something", "3. Placeholder" };
+        String[] mainMenuItems = { "~~Main Menu~~", "1. List all books", "2. Something", "3. Exit" };
 
         String userInput = "1";
         InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
@@ -113,6 +108,20 @@ public class BibliotecaTest {
         for (int i = 0; i < mainMenuItems.length; i++) {
             assertThat(outputContent.toString(), containsString(mainMenuItems[i]));
         }
+    }
+
+    @Test
+    public void shouldErrorOnIncorrectResponse() {
+
+        String menuError = "Please select a valid option!";
+
+        String userInput = "2382937";
+        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(inputStream);
+
+        BibliotecaApp.main(placeholder);
+
+        assertThat(outputContent.toString(), containsString(menuError));
 
     }
 }
