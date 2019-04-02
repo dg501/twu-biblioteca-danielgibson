@@ -116,4 +116,13 @@ public class BibliotecaTest {
         assertThat(outputContent.toString(), not(containsString("LoTR")));
 
     }
+
+    @Test
+    public void shouldDisplaySuccessMessageOnBookCheckout() {
+
+        textMock.provideLines("2","LoTR","3");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), containsString("Thank you! Enjoy the book"));
+    }
 }
