@@ -125,4 +125,13 @@ public class BibliotecaTest {
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you! Enjoy the book"));
     }
+
+    @Test
+    public void shouldDisplayFailureMessageOnBookCheckout() {
+
+        textMock.provideLines("2","Sabriel","3");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), containsString("Sorry, that book is not available"));
+    }
 }
