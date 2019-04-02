@@ -7,6 +7,7 @@ public class BibliotecaApp {
     public static void main(String[] args) {
 
         Book[] listOfBooks = new Book[3];
+        boolean confirmResult;
 
         String[] titleList = {"LoTR", "Twilight", "Jumanji"};
         String[] authorList = {"Tolkien", "Stephanie Meyer", "John Smith"};
@@ -37,7 +38,7 @@ public class BibliotecaApp {
                     case "2":
                         System.out.println("\nSelect book title:");
                         userInput = scan.nextLine();
-                        boolean confirmResult = true;
+                        confirmResult = true;
 
                         for(Book book : listOfBooks) {
 
@@ -55,16 +56,19 @@ public class BibliotecaApp {
                     case "3":
                         System.out.println("\nBook you are returning:");
                         userInput = scan.nextLine();
+                        confirmResult = true;
 
                         for (Book book : listOfBooks) {
 
                             if (book.getTitle().equals(userInput) && book.getCheckOut() == true) {
                                 book.setCheckOut(false);
+                                confirmResult = false;
                                 System.out.println("Thank you for returning the book");
                                 break;
                             }
-
                         }
+
+                        if (confirmResult) { System.out.println("That is not a valid book to return"); }
                         break;
 
                     case "4":

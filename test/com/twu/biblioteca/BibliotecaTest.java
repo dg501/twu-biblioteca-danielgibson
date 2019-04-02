@@ -153,4 +153,13 @@ public class BibliotecaTest {
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you for returning the book"));
     }
+
+    @Test
+    public void shouldShowErrorMessageWhenReturningUnknownBook() {
+
+        textMock.provideLines("3","The Great Gatsby","4");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), containsString("That is not a valid book"));
+    }
 }
