@@ -2,39 +2,42 @@ package com.twu.biblioteca;
 
 import java.util.Scanner;
 
-import static java.lang.System.exit;
-
 public class BibliotecaApp {
 
     public static void main(String[] args) {
 
         System.out.println("Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!");
 
-        String userInput;
-
-        System.out.println("\n~~Main Menu~~\n\n1. List all books [1]\n2. Something [2]\n3. Exit [3]\n");
-
         Scanner scan = new Scanner(System.in);
-        userInput = scan.nextLine();
+        String userInput = "";
 
-        switch(Integer.parseInt(userInput)) {
+        do {
+            System.out.println("\n1. List of books [1]\n2. Something [2]\n3. Exit [3]\n");
 
-            case 1:
-                displayBooks();
-                break;
+            if (scan.hasNextLine()) {
 
-            case 2:
-                //do something
-                break;
+                userInput = scan.nextLine();
 
-            case 3:
-                exit(1);
-                break;
+                switch (userInput) {
 
-            default:
-                System.out.println("\nPlease select a valid option!");
+                    case "1":
+                        displayBooks();
+                        break;
+
+                    case "2":
+                        //do something
+                        break;
+
+                    case "3":
+                        break;
+
+                    default:
+                        System.out.println("\nPlease select a valid option!");
+                        break;
+                }
             }
-        }
+        } while (!userInput.equals("3"));
+    }
 
     public static void displayBooks() {
 
