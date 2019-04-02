@@ -29,8 +29,8 @@ public class Book {
         return checkoutBook;
     }
 
-    public void setCheckOut() {
-        this.checkoutBook = true;
+    public void setCheckOut(boolean checkoutBook) {
+        this.checkoutBook = checkoutBook;
     }
 
 }

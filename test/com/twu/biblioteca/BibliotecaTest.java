@@ -46,7 +46,7 @@ public class BibliotecaTest {
 
         String welcomeMessage = "Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!\n";
 
-        textMock.provideLines("3");
+        textMock.provideLines("4");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), startsWith(welcomeMessage));
@@ -59,7 +59,7 @@ public class BibliotecaTest {
         String[] authorArray = { "Tolkien", "Stephanie Meyer", "John Smith" };
         String[] yearArray = { "1948", "2005", "2000" };
 
-        textMock.provideLines("1","3");
+        textMock.provideLines("1","4");
 
         BibliotecaApp.main(placeholder);
 
@@ -75,9 +75,9 @@ public class BibliotecaTest {
     @Test
     public void shouldPromptMainMenu() {
 
-        String[] mainMenuItems = { "1. List of books", "2. Checkout a book", "3. Exit" };
+        String[] mainMenuItems = { "1. List of books", "2. Checkout a book", "3. Return a book", "4. Exit" };
 
-        textMock.provideLines("3");
+        textMock.provideLines("4");
 
         BibliotecaApp.main(placeholder);
 
@@ -91,7 +91,7 @@ public class BibliotecaTest {
 
         String menuError = "Please select a valid option!";
 
-        textMock.provideLines("59","3");
+        textMock.provideLines("59","4");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString(menuError));
@@ -101,7 +101,7 @@ public class BibliotecaTest {
     @Test
     public void shouldExitAppWhenISelectOption() {
 
-        textMock.provideLines("3");
+        textMock.provideLines("4");
         exit.expectSystemExitWithStatus(0);
 
         BibliotecaApp.main(placeholder);
@@ -110,7 +110,7 @@ public class BibliotecaTest {
     @Test
     public void shouldFilterBookByCheckout() {
 
-        textMock.provideLines("2","LoTR","1","3");
+        textMock.provideLines("2","LoTR","1","4");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), not(containsString("LoTR")));
@@ -120,7 +120,7 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplaySuccessMessageOnBookCheckout() {
 
-        textMock.provideLines("2","LoTR","3");
+        textMock.provideLines("2","LoTR","4");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you! Enjoy the book"));
@@ -129,9 +129,19 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplayFailureMessageOnBookCheckout() {
 
-        textMock.provideLines("2","Sabriel","3");
+        textMock.provideLines("2","Sabriel","4");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Sorry, that book is not available"));
+    }
+
+    @Test
+    public void shouldReturnBookAndUpdateStatus() {
+
+        textMock.provideLines("2","LoTR","1","3","LoTR","1","4");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), containsString("LoTR"));
+
     }
 }

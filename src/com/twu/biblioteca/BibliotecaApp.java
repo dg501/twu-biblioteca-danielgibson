@@ -22,7 +22,7 @@ public class BibliotecaApp {
         String userInput = "";
 
         do {
-            System.out.println("\n1. List of books [1]\n2. Checkout a book [2]\n3. Exit [3]\n");
+            System.out.println("\n1. List of books [1]\n2. Checkout a book [2]\n3. Return a book [3]\n4. Exit [4]\n");
 
             if (scan.hasNextLine()) {
 
@@ -37,18 +37,36 @@ public class BibliotecaApp {
                     case "2":
                         System.out.println("\nSelect book title:");
                         userInput = scan.nextLine();
+                        boolean confirmResult = true;
 
                         for(Book book : listOfBooks) {
 
-                            if (book.getTitle().equals(userInput)) {
-                                book.setCheckOut();
+                            if (book.getTitle().equals(userInput) && book.getCheckOut() == false) {
+                                book.setCheckOut(true);
+                                confirmResult = false;
                                 System.out.println("Thank you! Enjoy the book");
-                            } else { System.out.println("Sorry, that book is not available"); }
+                                break;
+                            }
+                        }
+
+                        if (confirmResult) { System.out.println("Sorry, that book is not available"); }
+                        break;
+
+                    case "3":
+                        System.out.println("\nBook you are returning:");
+                        userInput = scan.nextLine();
+
+                        for (Book book : listOfBooks) {
+
+                            if (book.getTitle().equals(userInput) && book.getCheckOut() == true) {
+                                book.setCheckOut(false);
+                                break;
+                            }
 
                         }
                         break;
 
-                    case "3":
+                    case "4":
                         break;
 
                     default:
@@ -56,7 +74,7 @@ public class BibliotecaApp {
                         break;
                 }
             }
-        } while (!userInput.equals("3"));
+        } while (!userInput.equals("4"));
     }
 
     public static void displayBooks(Book[] bookList) {
