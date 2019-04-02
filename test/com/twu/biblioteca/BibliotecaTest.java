@@ -10,6 +10,7 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import java.io.*;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.*;
@@ -74,7 +75,7 @@ public class BibliotecaTest {
     @Test
     public void shouldPromptMainMenu() {
 
-        String[] mainMenuItems = { "1. List of books", "2. Something", "3. Exit" };
+        String[] mainMenuItems = { "1. List of books", "2. Checkout a book", "3. Exit" };
 
         textMock.provideLines("3");
 
@@ -104,5 +105,15 @@ public class BibliotecaTest {
         exit.expectSystemExitWithStatus(0);
 
         BibliotecaApp.main(placeholder);
+    }
+
+    @Test
+    public void shouldFilterBookByCheckout() {
+
+        textMock.provideLines("2","LoTR","1","3");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), not(containsString("LoTR")));
+
     }
 }
