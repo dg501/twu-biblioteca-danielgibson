@@ -60,6 +60,7 @@ public class BibliotecaApp {
 
                             if (book.getTitle().equals(userInput) && book.getCheckOut() == true) {
                                 book.setCheckOut(false);
+                                System.out.println("Thank you for returning the book");
                                 break;
                             }
 

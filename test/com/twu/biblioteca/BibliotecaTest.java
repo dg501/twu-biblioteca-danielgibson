@@ -144,4 +144,13 @@ public class BibliotecaTest {
         assertThat(outputContent.toString(), containsString("LoTR"));
 
     }
+
+    @Test
+    public void shouldDisplayReturnBookMessageOnSuccess() {
+
+        textMock.provideLines("2","Jumanji","3","Jumanji","4");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), containsString("Thank you for returning the book"));
+    }
 }
