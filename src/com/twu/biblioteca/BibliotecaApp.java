@@ -7,7 +7,6 @@ public class BibliotecaApp {
     public static void main(String[] args) {
 
         Book[] listOfBooks = new Book[3];
-        boolean confirmResult;
 
         String[] titleList = {"LoTR", "Twilight", "Jumanji"};
         String[] authorList = {"Tolkien", "Stephanie Meyer", "John Smith"};
@@ -38,37 +37,21 @@ public class BibliotecaApp {
                     case "2":
                         System.out.println("\nSelect book title:");
                         userInput = scan.nextLine();
-                        confirmResult = true;
 
-                        for(Book book : listOfBooks) {
+                        if (checkBookStatus(listOfBooks,userInput)) {
+                            System.out.println("Thank you! Enjoy the book");
+                        } else { System.out.println("Sorry, that book is not available"); }
 
-                            if (book.getTitle().equals(userInput) && book.getCheckOut() == false) {
-                                book.setCheckOut(true);
-                                confirmResult = false;
-                                System.out.println("Thank you! Enjoy the book");
-                                break;
-                            }
-                        }
-
-                        if (confirmResult) { System.out.println("Sorry, that book is not available"); }
                         break;
 
                     case "3":
                         System.out.println("\nBook you are returning:");
                         userInput = scan.nextLine();
-                        confirmResult = true;
 
-                        for (Book book : listOfBooks) {
+                        if (checkBookStatus(listOfBooks, userInput)) {
+                            System.out.println("Thank you for returning the book");
+                        } else { System.out.println("That is not a valid book to return"); }
 
-                            if (book.getTitle().equals(userInput) && book.getCheckOut() == true) {
-                                book.setCheckOut(false);
-                                confirmResult = false;
-                                System.out.println("Thank you for returning the book");
-                                break;
-                            }
-                        }
-
-                        if (confirmResult) { System.out.println("That is not a valid book to return"); }
                         break;
 
                     case "4":
@@ -91,6 +74,25 @@ public class BibliotecaApp {
                 System.out.format(format, book.getTitle(), book.getAuthor(), book.getPublication());
             }
         }
+
+    }
+
+    public static boolean checkBookStatus(Book[] bookList, String title) {
+
+        for (Book book : bookList) {
+
+            if (book.getTitle().equals(title) && book.getCheckOut() == false) {
+                book.setCheckOut(true);
+                return true;
+            }
+
+            else if (book.getTitle().equals(title) && book.getCheckOut() == true) {
+                book.setCheckOut(false);
+                return true;
+            }
+        }
+
+        return false;
 
     }
 }
