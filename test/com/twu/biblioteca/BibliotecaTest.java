@@ -147,7 +147,7 @@ public class BibliotecaTest {
     @Test
     public void shouldReturnBookAndUpdateStatus() {
 
-        textMock.provideLines("2","500-3854","1234","LoTR","1","3","LoTR","1","6");
+        textMock.provideLines("2","500-3854","1234","LoTR","1","3","500-3854","1234","LoTR","1","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("LoTR"));
@@ -157,7 +157,7 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplayReturnBookMessageOnSuccess() {
 
-        textMock.provideLines("2","500-3854","1234","Jumanji","3","Jumanji","6");
+        textMock.provideLines("2","500-3854","1234","Jumanji","3","500-3854","1234","Jumanji","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you for returning the book"));
@@ -166,7 +166,7 @@ public class BibliotecaTest {
     @Test
     public void shouldShowErrorMessageWhenReturningUnknownBook() {
 
-        textMock.provideLines("3","The Great Gatsby","6");
+        textMock.provideLines("3","500-3854","1234","The Great Gatsby","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("That is not a valid book"));
@@ -219,5 +219,15 @@ public class BibliotecaTest {
         assertThat(logInf, is(notNullValue()));
         assertThat(outputContent.toString(), containsString("Sorry, that book is not available"));
 
+    }
+
+    @Test
+    public void shouldDisplayDetailsOnSuccessRequest() {
+
+        textMock.provideLines("7","500-3854","1234","6");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(logInf, is(notNullValue()));
+        assertThat(outputContent.toString(), containsString("Daniel"));
     }
 }
