@@ -5,12 +5,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import java.io.*;
 
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.*;
@@ -23,6 +24,8 @@ public class BibliotecaTest {
     private InputStream inputStream = System.in;
 
     String[] placeholder;
+
+    @Mock LoginInfo logInf = new LoginInfo("123-4567","password");
 
     @Rule
     public TextFromStandardInputStream textMock = emptyStandardInputStream();
@@ -116,7 +119,7 @@ public class BibliotecaTest {
     @Test
     public void shouldFilterBookByCheckout() {
 
-        textMock.provideLines("2","LoTR","1","6");
+        textMock.provideLines("2","500-3854","1234","LoTR","1","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), not(containsString("LoTR")));
@@ -126,7 +129,7 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplaySuccessMessageOnBookCheckout() {
 
-        textMock.provideLines("2","LoTR","6");
+        textMock.provideLines("2","500-3854","1234","LoTR","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you! Enjoy the book"));
@@ -135,7 +138,7 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplayFailureMessageOnBookCheckout() {
 
-        textMock.provideLines("2","Sabriel","6");
+        textMock.provideLines("2","500-3854","1234","Sabriel","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Sorry, that book is not available"));
@@ -144,7 +147,7 @@ public class BibliotecaTest {
     @Test
     public void shouldReturnBookAndUpdateStatus() {
 
-        textMock.provideLines("2","LoTR","1","3","LoTR","1","6");
+        textMock.provideLines("2","500-3854","1234","LoTR","1","3","LoTR","1","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("LoTR"));
@@ -154,7 +157,7 @@ public class BibliotecaTest {
     @Test
     public void shouldDisplayReturnBookMessageOnSuccess() {
 
-        textMock.provideLines("2","Jumanji","3","Jumanji","6");
+        textMock.provideLines("2","500-3854","1234","Jumanji","3","Jumanji","6");
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), containsString("Thank you for returning the book"));
@@ -194,5 +197,27 @@ public class BibliotecaTest {
 
         BibliotecaApp.main(placeholder);
         assertThat(outputContent.toString(), not(containsString("Inception")));
+    }
+
+    @Test
+    public void shouldFailLoginToAccountWhenCheckingBookOut() {
+
+        textMock.provideLines("2",logInf.getLibraryIdNum(),logInf.getPassword(),"6");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(logInf, is(notNullValue()));
+        assertThat(outputContent.toString(), containsString("Incorrect login. Returning to main menu"));
+
+    }
+
+    @Test
+    public void shouldPassLoginToAccountWhenCheckingBookOut() {
+
+        textMock.provideLines("2","500-3854","1234","s","6");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(logInf, is(notNullValue()));
+        assertThat(outputContent.toString(), containsString("Sorry, that book is not available"));
+
     }
 }

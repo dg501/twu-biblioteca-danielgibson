@@ -26,6 +26,11 @@ public class BibliotecaApp {
             collectionOfMovies[i] = new Movie(nameList[i], directorList[i], yearList[i], ratingList[i]);
         }
 
+        String libraryNumber = "500-3854";
+        String password = "1234";
+
+        LoginInfo myAccount = new LoginInfo(libraryNumber, password);
+
         System.out.println("Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!");
 
         Scanner scan = new Scanner(System.in);
@@ -46,12 +51,25 @@ public class BibliotecaApp {
                         break;
 
                     case "2":
-                        System.out.println("\nSelect book title:");
-                        userInput = scan.nextLine();
+                        System.out.println("Please login.\n\nLibrary Number:");
+                        String libNum = scan.nextLine();
 
-                        if (checkItemStatus(listOfBooks,userInput)) {
-                            System.out.println("Thank you! Enjoy the book");
-                        } else { System.out.println("Sorry, that book is not available"); }
+                        System.out.println("\nPassword:");
+                        String pwd = scan.nextLine();
+
+                        if (libNum.equals(myAccount.getLibraryIdNum()) && pwd.equals(myAccount.getPassword())) {
+
+
+                            System.out.println("\nSelect book title:");
+                            userInput = scan.nextLine();
+
+                            if (checkItemStatus(listOfBooks, userInput)) {
+                                System.out.println("Thank you! Enjoy the book");
+                            } else {
+                                System.out.println("Sorry, that book is not available");
+                            }
+
+                        } else { System.out.println("Incorrect login. Returning to main menu"); }
 
                         break;
 
