@@ -70,7 +70,12 @@ public class BibliotecaApp {
                         break;
 
                     case "5":
-                        //checkout movies
+                        System.out.println("\nSelect movie you want to checkout:");
+                        userInput = scan.nextLine();
+
+                        if (checkItemStatus(collectionOfMovies,userInput)) {
+                            System.out.println("Enjoy your movie!");
+                        } else { System.out.println("Sorry this movie is unavailable"); }
                         break;
 
                     case "6":

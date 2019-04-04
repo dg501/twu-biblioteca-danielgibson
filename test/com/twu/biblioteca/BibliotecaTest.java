@@ -186,4 +186,13 @@ public class BibliotecaTest {
             assertThat(outputContent.toString(), containsString(ratingArray[i]));
         }
     }
+
+    @Test
+    public void shouldCheckoutMovieSuccessfully() {
+
+        textMock.provideLines("5","Inception","4","6");
+
+        BibliotecaApp.main(placeholder);
+        assertThat(outputContent.toString(), not(containsString("Inception")));
+    }
 }
