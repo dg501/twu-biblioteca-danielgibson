@@ -28,8 +28,8 @@ public class BookTest {
     @Test
     public void shouldCreateBookWithAttributes() {
         assertSame(book.getTitle(),"title");
-        assertSame(book.getAuthor(),"author");
-        assertSame(book.getPublication(),"publication");
+        assertSame(book.getCreator(),"author");
+        assertSame(book.getYear(),"publication");
     }
 
     @Test

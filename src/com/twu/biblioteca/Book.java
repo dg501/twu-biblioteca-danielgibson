@@ -1,28 +1,11 @@
 package com.twu.biblioteca;
 
-public class Book {
+public class Book extends EntertainmentItems {
 
-    private final String title;
-    private final String author;
-    private final String publication;
     private boolean checkoutBook = false;
 
     public Book(String title, String author, String publication) {
-        this.title = title;
-        this.author = author;
-        this.publication = publication;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublication() {
-        return publication;
+        super(title, author, publication);
     }
 
     public boolean getCheckOut() {

@@ -1,26 +1,17 @@
 package com.twu.biblioteca;
 
-public class Movie {
+public class Movie extends EntertainmentItems {
 
-    private String name;
-    private String director;
     private String rating;
+    private boolean checkoutMovie = false;
 
-    public Movie(String name, String director, String rating) {
-        this.name = name;
-        this.director = director;
+    public Movie(String name, String director, String year, String rating) {
+        super(name, director, year);
         this.rating = rating;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDirector() {
-        return director;
     }
 
     public String getRating() {
         return rating;
     }
+
 }
