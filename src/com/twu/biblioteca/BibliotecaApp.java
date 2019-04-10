@@ -65,7 +65,7 @@ public class BibliotecaApp {
                         System.out.println("\nPassword:");
                         pwd = scan.nextLine();
 
-                        if (libNum.equals(myAccount.getLibraryIdNum()) && pwd.equals(myAccount.getPassword())) {
+                        if (myAccount.loginToAccount(libNum, pwd, myAccount)) {
 
 
                             System.out.println("\nSelect book title:");

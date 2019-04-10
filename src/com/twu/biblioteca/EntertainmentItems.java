@@ -45,7 +45,7 @@ public class EntertainmentItems {
 
     }
 
-    public static boolean checkItemStatus(EntertainmentItems[] itemList, String title) {
+    public static Boolean checkItemStatus(EntertainmentItems[] itemList, String title) {
 
         for (EntertainmentItems item : itemList) {
 

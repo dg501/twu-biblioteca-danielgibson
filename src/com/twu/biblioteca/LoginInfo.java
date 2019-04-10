@@ -47,5 +47,12 @@ public class LoginInfo {
                 + "\nPhone Number: " + logInf.getPhoneNo());
     }
 
+    public static Boolean loginToAccount(String libNum, String pwd, LoginInfo logInf) {
 
+        if (libNum.equals(logInf.getLibraryIdNum()) && pwd.equals(logInf.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
