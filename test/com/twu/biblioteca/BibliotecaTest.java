@@ -83,7 +83,8 @@ public class BibliotecaTest {
                 "3. Return a book",
                 "4. Display movies",
                 "5. Checkout a movie",
-                "6. Exit"
+                "6. Exit",
+                "7. Show my details"
         };
 
         textMock.provideLines("6");
@@ -206,7 +207,7 @@ public class BibliotecaTest {
 
         BibliotecaApp.main(placeholder);
         assertThat(logInf, is(notNullValue()));
-        assertThat(outputContent.toString(), containsString("Incorrect login. Returning to main menu"));
+        assertThat(outputContent.toString(), containsString("Incorrect username or password. Returning to main menu"));
 
     }
 

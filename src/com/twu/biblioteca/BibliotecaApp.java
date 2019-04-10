@@ -2,8 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.Scanner;
 
-import static com.twu.biblioteca.EntertainmentItems.checkItemStatus;
-import static com.twu.biblioteca.EntertainmentItems.displayList;
+import static com.twu.biblioteca.EntertainmentItems.*;
 
 public class BibliotecaApp {
 
@@ -33,9 +32,6 @@ public class BibliotecaApp {
         String myEmail = "myemail@email.com";
         Integer myPhoneNo = 94949494;
 
-        String libNum;
-        String pwd;
-
         LoginInfo myAccount = new LoginInfo(libraryNumber, password);
         LoginInfo myDetails = new LoginInfo(myName, myEmail, myPhoneNo);
 
@@ -59,48 +55,13 @@ public class BibliotecaApp {
                         break;
 
                     case "2":
-                        System.out.println("Please login.\n\nLibrary Number:");
-                        libNum = scan.nextLine();
 
-                        System.out.println("\nPassword:");
-                        pwd = scan.nextLine();
-
-                        if (myAccount.loginToAccount(libNum, pwd, myAccount)) {
-
-
-                            System.out.println("\nSelect book title:");
-                            userInput = scan.nextLine();
-
-                            if (checkItemStatus(listOfBooks, userInput)) {
-                                System.out.println("Thank you! Enjoy the book");
-                            } else {
-                                System.out.println("Sorry, that book is not available");
-                            }
-
-                        } else { System.out.println("Incorrect login. Returning to main menu"); }
-
+                        if (myAccount.loginToAccount(scan, myAccount)) { checkoutItem(listOfBooks, scan); }
                         break;
 
                     case "3":
-                        System.out.println("Please login.\n\nLibrary Number:");
-                        libNum = scan.nextLine();
 
-                        System.out.println("\nPassword:");
-                        pwd = scan.nextLine();
-
-                        if (libNum.equals(myAccount.getLibraryIdNum()) && pwd.equals(myAccount.getPassword())) {
-
-                            System.out.println("\nBook you are returning:");
-                            userInput = scan.nextLine();
-
-                            if (checkItemStatus(listOfBooks, userInput)) {
-                                System.out.println("Thank you for returning the book");
-                            } else {
-                                System.out.println("That is not a valid book to return");
-                            }
-
-                        } else { System.out.println("Incorrect login. Returning to main menu"); }
-
+                        if (myAccount.loginToAccount(scan, myAccount)) { returnItem(listOfBooks, scan); }
                         break;
 
                     case "4":
@@ -108,31 +69,18 @@ public class BibliotecaApp {
                         break;
 
                     case "5":
-                        System.out.println("\nSelect movie you want to checkout:");
-                        userInput = scan.nextLine();
-
-                        if (checkItemStatus(collectionOfMovies,userInput)) {
-                            System.out.println("Enjoy your movie!");
-                        } else { System.out.println("Sorry this movie is unavailable"); }
-
+                        if (myAccount.loginToAccount(scan, myAccount)) { checkoutItem(collectionOfMovies, scan); }
                         break;
 
                     case "6":
                         break;
 
                     case "7":
-                        System.out.println("Please login.\n\nLibrary Number:");
-                        libNum = scan.nextLine();
 
-                        System.out.println("\nPassword:");
-                        pwd = scan.nextLine();
-
-                        if (libNum.equals(myAccount.getLibraryIdNum()) && pwd.equals(myAccount.getPassword())) {
+                        if (myAccount.loginToAccount(scan, myAccount)) {
                             System.out.println(myAccount.displayPrivateInfo(myDetails));
-                        } else { System.out.println("Incorrect login. Returning to main menu"); }
-
+                        }
                         break;
-
 
                     default:
                         System.out.println("\nPlease select a valid option!");

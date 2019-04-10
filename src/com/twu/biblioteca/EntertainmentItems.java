@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.sun.tools.javac.comp.Enter;
+
+import java.util.Scanner;
+
 public class EntertainmentItems {
 
     protected final String title;
@@ -64,6 +68,56 @@ public class EntertainmentItems {
 
     }
 
+    public static void checkoutItem(EntertainmentItems[] itemList, Scanner scan) {
 
+        System.out.println("\nSelect the title:");
+        String title = scan.nextLine();
 
+        for (EntertainmentItems item : itemList) {
+
+            if (checkItemStatus(itemList, title) && item instanceof Book) {
+                System.out.println("Thank you! Enjoy the book");
+                break;
+            } else if (item instanceof Book) {
+                System.out.println("Sorry, that book is not available");
+                break;
+            }
+
+            if (checkItemStatus(itemList, title) && item instanceof Movie) {
+                System.out.println("Enjoy your movie!");
+                break;
+            } else if (item instanceof Movie) {
+                System.out.println("Sorry this movie is unavailable");
+                break;
+            }
+
+        }
+
+    }
+
+    public static void returnItem(EntertainmentItems[] itemList, Scanner scan) {
+
+        System.out.println("\nTitle of item you are returning:");
+        String title = scan.nextLine();
+
+        for (EntertainmentItems item : itemList) {
+
+            if (checkItemStatus(itemList, title) && item instanceof Book){
+                System.out.println("Thank you for returning the book");
+                break;
+            } else if (item instanceof Book) {
+                System.out.println("That is not a valid book to return");
+                break;
+            }
+
+            if (checkItemStatus(itemList, title) && item instanceof Movie) {
+                System.out.println("Thank you for returning the movie");
+                break;
+            } else if (item instanceof Movie) {
+                System.out.println("Invalid movie title.");
+                break;
+            }
+
+        }
+    }
 }

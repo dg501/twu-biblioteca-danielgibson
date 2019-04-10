@@ -51,14 +51,4 @@ public class LoginInfoTest {
         assertThat(accInf.getPhoneNo(),equalTo(phoneNo));
 
     }
-
-    @Test
-    public void shouldLoginToAccountSuccessfully() {
-
-        String libNum = "123-4567";
-        String pwd = "password";
-
-        assertTrue(loginToAccount(libNum, pwd, logInf));
-    }
-
 }

@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import java.util.Scanner;
+
 public class LoginInfo {
 
     private String libraryIdNum;
@@ -47,11 +49,18 @@ public class LoginInfo {
                 + "\nPhone Number: " + logInf.getPhoneNo());
     }
 
-    public static Boolean loginToAccount(String libNum, String pwd, LoginInfo logInf) {
+    public static Boolean loginToAccount(Scanner scan, LoginInfo logInf) {
+
+        System.out.println("Please login.\n\nLibrary Number:");
+        String libNum = scan.nextLine();
+
+        System.out.println("\nPassword:");
+        String pwd = scan.nextLine();
 
         if (libNum.equals(logInf.getLibraryIdNum()) && pwd.equals(logInf.getPassword())) {
             return true;
         } else {
+            System.out.println("Incorrect username or password. Returning to main menu");
             return false;
         }
     }

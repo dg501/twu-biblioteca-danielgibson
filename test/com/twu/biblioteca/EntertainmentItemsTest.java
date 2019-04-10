@@ -44,11 +44,4 @@ public class EntertainmentItemsTest {
         assertFalse(entertainmentItems.getCheckOut());
     }
 
-    @Test
-    public void shouldDoSomething() {
-
-
-
-    }
-
 }
